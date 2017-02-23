@@ -19,7 +19,7 @@ class CreateDireccionTable extends Migration
             $table->integer('num_ext');
             $table->integer('num_int');
             $table->string('colonia');
-            $table->string('cp');
+            $table->integer('cp');
             $table->string('delegacion');
             $table->string('municipio');
             $table->integer('estado')->unsigned();
