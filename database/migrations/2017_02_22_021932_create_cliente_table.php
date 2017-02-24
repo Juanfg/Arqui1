@@ -22,7 +22,7 @@ class CreateClienteTable extends Migration
             $table->integer('duenio')->unsigned();
             $table->foreign('duenio')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->string('email');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(1);
             $table->timestamps();
         });
     }

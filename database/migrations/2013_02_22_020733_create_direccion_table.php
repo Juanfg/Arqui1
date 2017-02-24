@@ -17,14 +17,14 @@ class CreateDireccionTable extends Migration
             $table->increments('id');
             $table->string('calle');
             $table->integer('num_ext');
-            $table->integer('num_int');
+            $table->integer('num_int')->nullable();
             $table->string('colonia');
             $table->integer('cp');
             $table->string('delegacion');
             $table->string('municipio');
             $table->integer('estado')->unsigned();
             $table->foreign('estado')->references('id')->on('estado')->onDelete('restrict')->onUpdate('cascade');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(1);
             $table->timestamps();
         });
     }

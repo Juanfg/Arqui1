@@ -20,7 +20,7 @@ class CreateDatosCliTable extends Migration
             $table->integer('direccion')->unsigned();
             $table->foreign('direccion')->references('id')->on('direccion')->onDelete('restrict')->onUpdate('cascade');
             $table->string('email');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(1);
             $table->timestamps();
         });
     }

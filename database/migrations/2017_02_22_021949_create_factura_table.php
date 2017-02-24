@@ -29,7 +29,7 @@ class CreateFacturaTable extends Migration
             $table->integer('cliente')->unsigned();
             $table->foreign('cliente')->references('id')->on('cliente')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
-            $table->boolean('cancelada');
+            $table->boolean('cancelada')->default(0);
         });
     }
 

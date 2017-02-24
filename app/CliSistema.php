@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CliSistema extends Model
 {
     protected $table = 'users';
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'timbres'];
 
     public function datos(){
     	return $this->belongsTo('App\DatosCli', 'datos_facturacion')->first();

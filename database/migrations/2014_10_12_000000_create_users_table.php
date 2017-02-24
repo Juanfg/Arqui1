@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->integer('timbres');
+            $table->integer('timbres')->default(0);
             $table->integer('datos_facturacion')->unsigned();
             $table->foreign('datos_facturacion')->references('id')->on('datos_cli')->onDelete('restrict')->onUpdate('cascade');
             $table->string('key');

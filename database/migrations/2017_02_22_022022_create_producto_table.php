@@ -22,7 +22,7 @@ class CreateProductoTable extends Migration
             $table->double('precio');
             $table->boolean('iva');
             $table->boolean('ieps');
-            $table->boolean('visible');
+            $table->boolean('visible')->default(1);
             $table->timestamps();
         });
     }

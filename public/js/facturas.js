@@ -20,7 +20,8 @@ $( document ).ready(function() {
 		$(this).closest('tr').attr('data-id');
 		var r = confirm("Estas seguro de que deseas cancelar esta factura. Esto no se puede deshacer");
 		if (r) {
-		    $(this).closest('tr').fadeOut();
+		    $(this).closest('tr').find(".cancelada").html('Si');
+		    $(this).fadeOut();
 		}
 	});
 	
