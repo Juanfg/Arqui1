@@ -18,7 +18,7 @@ class CreateFacturaTable extends Migration
             $table->integer('duenio')->unsigned();
             $table->foreign('duenio')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->string('folio');
-            $table->integer('certificado');
+            $table->string('certificado');
             $table->timestamp('fecha_certificacion')->nullable();
             $table->timestamp('fecha_creacion')->nullable();
             $table->string('sello_cfdi');

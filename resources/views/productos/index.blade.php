@@ -20,7 +20,7 @@
 
             <tbody>
                 @foreach ($productos as $producto)
-                    <tr>
+                    <tr data-id="{{$producto->id}}">
                         <td class="center">{{ $producto->nombre }}</td>
                         <td class="center">{{ $producto->unidad }}</td>
                         <td class="center">{{ $producto->precio }}</td>
@@ -39,15 +39,19 @@
                             @endif
                         </td>
                         <td class="col-xs-1 col-xs-offset-1">
-                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                            <button class="btn btn-primary btn-xs editar"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs borrar"><i class="fa fa-trash-o "></i></button>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
         <div align="left">
-            <button class="btn btn-success">Añadir Product</button>
+            <button class="btn btn-success" id="crear">A&ntilde;adir productos</button>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/productos.js') }}"></script>
+@endpush

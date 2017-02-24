@@ -10,11 +10,15 @@ class Factura extends Model
     protected $guarded = ['id'];
 
     public function cliente(){
-    	$this->belongsTo('App\Cliente', 'cliente')->first();
+    	return $this->belongsTo('App\Cliente', 'cliente')->first();
     }
 
     public function productos(){
     	$this->belongsTo('App\Producto', 'factura')->first();
+    }
+
+    public function monto(){
+    	return 200.0;
     }
 
 }

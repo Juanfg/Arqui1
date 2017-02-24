@@ -60,6 +60,10 @@
 
 
 <div class="col-xs-12 col-sm-offset-3 col-sm-6">
-  <button class="btn btn-success btn-block">{{ $producto != null ? "Editar" : "Crear" }}</button>
+  <button class="btn btn-success btn-block" id="done">{{ $producto != null ? "Editar" : "Crear" }}</button>
 </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/productos.js') }}"></script>
+@endpush

@@ -87,7 +87,7 @@
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
                             <li><a  href="/clientes">clientes</a></li>
-                            <li><a href="#">#</a></li>
+                            <li><a href="/productos">productos</a></li>
                             <li><a href="#">#</a></li>
                             <li><a href="#">#</a></li>
                             <li><a href="#">#</a></li>
