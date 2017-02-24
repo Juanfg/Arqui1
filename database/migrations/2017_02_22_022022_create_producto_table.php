@@ -15,6 +15,7 @@ class CreateProductoTable extends Migration
     {
         Schema::create('producto', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
             $table->integer('duenio')->unsigned();
             $table->foreign('duenio')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->string('unidad');
