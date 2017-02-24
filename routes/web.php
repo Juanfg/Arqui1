@@ -23,3 +23,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('clientes', 'ClientesController');
 Route::resource('facturas', 'FacturasController');
+
+Route::resource('perfil', 'PerfilController');
+
+Route::resource('payment', 'PaymentController');
