@@ -14,38 +14,40 @@
                     <th>Precio</th>
                     <th>IVA</th>
                     <th>IEPS</th>
-                    <th>Actions</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
                 @foreach ($productos as $producto)
-                    <td class="center">{{ $producto->nombre }}</td>
-                    <td class="center">{{ $producto->unidad }}</td>
-                    <td class="center">{{ $producto->precio }}</td>
-                    <td class="center">
-                        @if ($producto->iva === 1)
-                            YES
-                        @else
-                            NO
-                        @endif
-                    </td>
-                    <td class="center">
-                        @if ($producto->ieps === 1)
-                            YES
-                        @else
-                            NO
-                        @endif
-                    </td>
-                    <td class="col-xs-1 col-xs-offset-1">
-                        <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                    </td>
+                    <tr>
+                        <td class="center">{{ $producto->nombre }}</td>
+                        <td class="center">{{ $producto->unidad }}</td>
+                        <td class="center">{{ $producto->precio }}</td>
+                        <td class="center">
+                            @if ($producto->iva === 1)
+                                SI
+                            @else
+                                NO
+                            @endif
+                        </td>
+                        <td class="center">
+                            @if ($producto->ieps === 1)
+                                SI
+                            @else
+                                NO
+                            @endif
+                        </td>
+                        <td class="col-xs-1 col-xs-offset-1">
+                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
         <div align="left">
-            <button class="btn btn-success">Add Product</button>
+            <button class="btn btn-success">Añadir Product</button>
         </div>
     </div>
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.blank')
 
 @section('title')
-    Please Login To Enter
+    Login
 @endsection
 
 @section('content')

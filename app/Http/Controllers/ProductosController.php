@@ -8,6 +8,12 @@ use App\Producto;
 
 class ProductosController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +32,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        //
+        return view('productos.create', ['producto' => null]);
     }
 
     /**
@@ -59,7 +65,8 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = Producto::where('id', $id)->firstOrFail();
+        return view('productos.create', ['producto' => $producto]);
     }
 
     /**
