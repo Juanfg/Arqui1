@@ -85,10 +85,9 @@
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
                             <li><a  href="/clientes">clientes</a></li>
-                            <li><a href="#">#</a></li>
-                            <li><a href="#">#</a></li>
-                            <li><a href="#">#</a></li>
-                            <li><a href="#">#</a></li>
+                            <li><a href="/productos">productos</a></li>
+                            <li><a href="/payment">payment</a></li>
+                            <li><a href="/home">home</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
