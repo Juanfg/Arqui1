@@ -38,6 +38,7 @@
 
             </div>
 
+            @if(Auth::check())
             <div class="left-div">
                 <div class="user-settings-wrapper">
                     <ul class="nav">
@@ -74,6 +75,7 @@
                     </ul>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     <!-- LOGO HEADER END-->
@@ -106,9 +108,6 @@
             </div>
         </div>
     </section>
-    @else
-        <li><a href="{{ route('login') }}">Login</a></li>
-        <li><a href="{{ route('register') }}">Register</a></li>
     @endif
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
