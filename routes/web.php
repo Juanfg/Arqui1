@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::resource('clientes', 'ClientesController');
+
+Route::resource('perfil', 'PerfilController');

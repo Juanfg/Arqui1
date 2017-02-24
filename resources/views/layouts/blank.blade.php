@@ -25,21 +25,19 @@
 <body>
     <div class="navbar navbar-inverse set-radius-zero">
         <div class="container">
-            <div class="navbar-header">
+            <div class="navbar-header col-sm-6">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ asset('index.html') }}">
 
-                    <img src="{{ asset('img/logo.png') }}" />
-                </a>
+                <img width="200" heigth="68" src="{{ asset('img/logo.png') }}" />
 
             </div>
 
             @if(Auth::check())
-            <div class="left-div">
+            <div class="btn pull-right col-sm-1">
                 <div class="user-settings-wrapper">
                     <ul class="nav">
 
@@ -50,15 +48,16 @@
                             <div class="dropdown-menu dropdown-settings">
                                 <div class="media">
                                     <a class="media-left" href="#">
-                                        <img src="{{ asset('img/64-64.jpg') }}" alt="" class="img-rounded" />
+                                        <img src="{{ asset('img/selene.jpg') }}" alt="" class="img-rounded" />
                                     </a>
                                     <div class="media-body">
-                                        <h6 class="media-heading">{{ Auth::user()->email }} </h4>
+                                        <h5 class="media-heading">{{ App\CliSistema::find(Auth::id())->datos()->razon_social }} </h5>
                                     </div>
                                 </div>
                                 <hr />
-
+                                    <h6 >{{ Auth::user()->email }}</h6>
                                 <hr />
+                                <a href="/perfil" class="btn btn-primary btn-sm">Actualizar</a>
                                 <a href="{{ route('logout') }}" class="btn btn-danger btn-sm"
                                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
@@ -67,7 +66,6 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                 </form>
-
                             </div>
                         </li>
 
@@ -130,7 +128,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <a>Cli-Sistema</a>
+                    <a>Facturo Online</a>
                 </div>
 
             </div>
