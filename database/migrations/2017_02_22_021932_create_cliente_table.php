@@ -19,6 +19,8 @@ class CreateClienteTable extends Migration
             $table->string('rfc');
             $table->integer('direccion')->unsigned();
             $table->foreign('direccion')->references('id')->on('direccion')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('duenio')->unsigned();
+            $table->foreign('duenio')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->string('email');
             $table->boolean('visible');
             $table->timestamps();

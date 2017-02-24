@@ -86,7 +86,7 @@
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            <li><a  href="#">#</a></li>
+                            <li><a  href="/clientes">clientes</a></li>
                             <li><a href="#">#</a></li>
                             <li><a href="#">#</a></li>
                             <li><a href="#">#</a></li>
@@ -142,5 +142,6 @@
     <script src="{{ asset('js/jquery-1.11.1.js') }}"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>
