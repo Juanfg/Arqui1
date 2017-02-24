@@ -15,6 +15,14 @@ $( document ).ready(function() {
 		var url = "/facturas/create";
 		$(location).attr('href',url);
 	});
+
+	$(".borrar").click(function(){
+		$(this).closest('tr').attr('data-id');
+		var r = confirm("Estas seguro de que deseas cancelar esta factura. Esto no se puede deshacer");
+		if (r) {
+		    $(this).closest('tr').fadeOut();
+		}
+	});
 	
 	$(".mostrar").click(function(){
 		alert("Por el momento esta funcion no esta disponible");

@@ -84,10 +84,11 @@
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="/home">home</a></li>
                             <li><a  href="/clientes">clientes</a></li>
                             <li><a href="/productos">productos</a></li>
-                            <li><a href="/payment">payment</a></li>
-                            <li><a href="/home">home</a></li>
+                            <li><a href="/payment">folios</a></li>
+                            <li><a href="/facturas">facturas</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

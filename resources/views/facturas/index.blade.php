@@ -12,6 +12,7 @@
                     <th>Facturado a</th>
                     <th>Fecha</th>
                     <th>Monto</th>
+                    <th>Cancelada</th>
                     <th>Opciones</th>
                 </tr>
             </thead>
@@ -22,9 +23,12 @@
                         <td class="center">{{ $factura->cliente()->razon_social }}</td>
                         <td class="center">{{ $factura->created_at }}</td>
                         <td class="center">{{ $factura->monto() }}</td>
+                        <td class="center">{{ $factura->cancelada ? "Si" : "No" }}</td>
                         <td class="col-xs-1 col-xs-offset-1">
                             <button class="btn btn-primary btn-xs mostrar"><i class="fa fa-eye"></i></button>
+                            @if(!$factura->cancelada)
                             <button class="btn btn-danger btn-xs borrar"><i class="fa fa-trash-o"></i></button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
