@@ -18,6 +18,10 @@ class CliSistema extends Model
     }
 
     public function productos(){
-    	return $this->hasMany('App\Producto', 'duenio')->get();
+        return $this->hasMany('App\Producto', 'duenio')->get();
+    }
+
+    public function pagos(){
+    	return $this->hasMany('App\Pago', 'cli_sistema')->get();
     }
 }
