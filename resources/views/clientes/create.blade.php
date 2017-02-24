@@ -4,6 +4,8 @@
 
 <div class="col-xs-12">
 
+  <span hidden class="id">{{ $cliente ? $cliente->id : "" }}</span>
+
   <div class="col-md-12 col-sm-12">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -118,6 +120,10 @@
   </div>
 </div>
 <div class="col-xs-12 col-sm-offset-3 col-sm-6">
-  <button class="btn btn-success btn-block">{{ $cliente != null ? "Editar" : "Crear" }}</button>
+  <button class="btn btn-success btn-block" id="done">{{ $cliente != null ? "Editar" : "Crear" }}</button>
 </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/clientes.js') }}"></script>
+@endpush

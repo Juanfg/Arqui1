@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Cliente;
 use App\Estado;
 
@@ -22,7 +23,10 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        //
+
+        $userId = Auth::id();
+        $clientes = Cliente::where('visible', 1)->where('duenio', $userId)->get();
+        return view('clientes.index', ['clientes' => $clientes]);
     }
 
     /**
@@ -92,5 +96,6 @@ class ClientesController extends Controller
         $cliente = Cliente::where('id', $id)->firstOrFail();
         $cliente->visible = 0;
         $cliente->save();
+        return "";
     }
 }
