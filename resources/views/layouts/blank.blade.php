@@ -25,6 +25,7 @@
 <body>
     <div class="navbar navbar-inverse set-radius-zero">
         <div class="container">
+            <span id="crsf" hidden="hidden">{{ csrf_token() }}</span>
             <div class="navbar-header col-sm-6">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>

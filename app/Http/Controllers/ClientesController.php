@@ -96,6 +96,6 @@ class ClientesController extends Controller
         $cliente = Cliente::where('id', $id)->firstOrFail();
         $cliente->visible = 0;
         $cliente->save();
-        return "";
+        return ['success' => true];
     }
 }
