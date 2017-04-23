@@ -59,10 +59,10 @@ class ClientesController extends Controller
             'delegacion'=> 'required|string',
             'municipio' => 'required|string',
             'estados'   => 'required|string',
-            'email'     => 'required|string'
+            'email'     => 'required|email'
         ]);
 
-        $clienteAlreadyExists = Cliente::where('rfc', $request->rfc)->count();
+        $clienteAlreadyExists = Cliente::where('rfc', $request->rfc)->where('visible', true)->count();
         if ($clienteAlreadyExists == 0)
         {
             $direccionAlreadyExists = Direccion::where('calle', $request->direccion)->where('num_ext', $request->exterior)
@@ -145,7 +145,7 @@ class ClientesController extends Controller
             'delegacion'=> 'required|string',
             'municipio' => 'required|string',
             'estados'   => 'required|string',
-            'email'     => 'required|string'
+            'email'     => 'required|email'
         ]);
 
         $cliente = Cliente::where('id', $id)->firstOrFail();
