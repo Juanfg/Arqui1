@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Cliente;
 use App\Estado;
+use App\Direccion;
 
 class ClientesController extends Controller
 {
@@ -47,7 +48,58 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre'    => 'required|string',
+            'rfc'       => 'required|string',
+            'direccion' => 'required|string',
+            'exterior'  => 'required|string',
+            'interior'  => 'required|string',
+            'colonia'   => 'required|string',
+            'cp'        => 'required|string',
+            'delegacion'=> 'required|string',
+            'municipio' => 'required|string',
+            'estados'   => 'required|string',
+            'email'     => 'required|string'
+        ]);
+
+        $clienteAlreadyExists = Cliente::where('rfc', $request->rfc)->count();
+        if ($clienteAlreadyExists == 0)
+        {
+            $direccionAlreadyExists = Direccion::where('calle', $request->direccion)->where('num_ext', $request->exterior)
+                                                ->where('num_int', $request->interior)->where('colonia', $request->colonia)
+                                                ->where('cp', $request->cp)->where('delegacion', $request->delegacion)
+                                                ->where('municipio', $request->municipio)->where('estado', $request->estados)->first();
+            
+            $direccion = $direccionAlreadyExists ? $direccionAlreadyExists : 
+            Direccion::create([
+                'calle'     => $request->direccion,
+                'num_ext'   => $request->exterior,
+                'num_int'   => $request->interior,
+                'colonia'   => $request->colonia,
+                'cp'        => $request->cp,
+                'delegacion'=> $request->delegacion,
+                'municipio' => $request->municipio,
+                'estado'    => $request->estados,
+                'visible'   => true
+            ]);
+
+            Cliente::create([
+                'razon_social'  => $request->nombre,
+                'rfc'           => $request->rfc,
+                'direccion'     => $direccion->id,
+                'duenio'        => Auth::id(),
+                'email'         => $request->email,
+                'visible'       => true
+            ]);
+        }
+        else
+        {
+            $request->session()->flash('error', 'El RFC de este cliente ya ha sido registrado por otro cliente');
+            return back()->withInput();
+        }
+
+        $request->session()->flash("message", "Cliente creado con exito");
+        return redirect()->route('clientes.index');
     }
 
     /**
@@ -82,7 +134,57 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre'    => 'required|string',
+            'rfc'       => 'required|string',
+            'direccion' => 'required|string',
+            'exterior'  => 'required|string',
+            'interior'  => 'required|string',
+            'colonia'   => 'required|string',
+            'cp'        => 'required|string',
+            'delegacion'=> 'required|string',
+            'municipio' => 'required|string',
+            'estados'   => 'required|string',
+            'email'     => 'required|string'
+        ]);
+
+        $cliente = Cliente::where('id', $id)->firstOrFail();
+        $updating = $request->only('rfc', 'email');
+        $updating['razon_social'] = $request->nombre;
+        $updating['duenio'] = Auth::id();
+
+        $clienteAlreadyExists = Cliente::where('rfc', $request->rfc)->where('id', '<>', $id)->count();
+        if ($clienteAlreadyExists == 0)
+        {
+            $direccionAlreadyExists = Direccion::where('calle', $request->direccion)->where('num_ext', $request->exterior)
+                                                ->where('num_int', $request->interior)->where('colonia', $request->colonia)
+                                                ->where('cp', $request->cp)->where('delegacion', $request->delegacion)
+                                                ->where('municipio', $request->municipio)->where('estado', $request->estados)->first();
+
+            $direccion = $direccionAlreadyExists ? $direccionAlreadyExists : 
+            Direccion::create([
+                'calle'     => $request->direccion,
+                'num_ext'   => $request->exterior,
+                'num_int'   => $request->interior,
+                'colonia'   => $request->colonia,
+                'cp'        => $request->cp,
+                'delegacion'=> $request->delegacion,
+                'municipio' => $request->municipio,
+                'estado'    => $request->estados,
+                'visible'   => true
+            ]);
+
+            $updating['direccion'] = $direccion->id;
+            $cliente->update($updating);
+        }
+        else
+        {
+            $request->session()->flash('error', 'El RFC de este cliente ya ha sido registrado por otro cliente');
+            return back()->withInput();
+        }
+        
+        $request->session()->flash("message", "Cliente actualizado con exito");
+        return redirect()->route('clientes.index');
     }
 
     /**
