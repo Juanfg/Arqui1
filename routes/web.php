@@ -15,15 +15,16 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::resource('productos', 'ProductosController');
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index');
 
+Route::resource('productos', 'ProductosController');
+
 Route::resource('clientes', 'ClientesController');
+
 Route::resource('facturas', 'FacturasController');
 
 Route::resource('perfil', 'PerfilController');
 
 Route::resource('payment', 'PaymentController');
+
+Auth::routes();

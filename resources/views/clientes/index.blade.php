@@ -5,6 +5,20 @@
 @endsection
 
 @section('content')
+
+@if (session('message'))
+    <div class="alert alert-success">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ session('message') }}
+    </div>
+@endif
+@if (session('error'))
+    <div class="alert alert-danger">
+        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ session('error') }}
+    </div>
+@endif
+
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
             <thead>
