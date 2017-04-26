@@ -21,8 +21,8 @@
                 @foreach ($facturas as $factura)
                     <tr data-id="{{$factura->id}}">
                         <td class="center">{{ $factura->cliente()->razon_social }}</td>
-                        <td class="center">{{ $factura->created_at }}</td>
-                        <td class="center">{{ $factura->monto() }}</td>
+                        <td class="center">{{ $factura->fecha_creacion }}</td>
+                        <td class="center">$ {{ number_format($factura->monto(), 2, '.', ' ') }}</td>
                         <td class="center cancelada">{{ $factura->cancelada ? "Si" : "No" }}</td>
                         <td class="col-xs-1 col-xs-offset-1">
                             <button class="btn btn-primary btn-xs mostrar"><i class="fa fa-eye"></i></button>
