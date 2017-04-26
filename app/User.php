@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function folios()
     {
-        return $this->belongsToMany('App\User', 'folios_users');
+        return $this->belongsToMany('App\User', 'pago', 'cli_sistema', 'folio_id');
     }
 
     function datos_facturacion(){

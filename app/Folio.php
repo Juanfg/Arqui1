@@ -11,6 +11,6 @@ class Folio extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'folios_users');
+        return $this->belongsToMany('App\User', 'pago', 'folio_id', 'cli_sistema');
     }
 }

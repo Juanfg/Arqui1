@@ -37,7 +37,8 @@ class ClientesController extends Controller
      */
     public function create()
     {
-        return view('clientes.create', ['cliente' => null, 'estados' => Estado::all()]);
+        $estados = Estado::pluck('nombre', 'id');
+        return view('clientes.create', ['cliente' => null, 'estados' => $estados]);
     }
 
     /**
