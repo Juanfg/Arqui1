@@ -43,6 +43,15 @@ class UsersTableSeeder extends Seeder
             'cer' => str_random(20),
             'password_cer' => str_random(20),
         ]);
+
+        DB::table('cliente')->insert([
+            'id' => 1,
+            'razon_social' => str_random(20),
+            'rfc' => str_random(20),
+            'direccion' => 1,
+            'duenio' => 1,
+            'email' => str_random(10).'@gmail.com',
+        ]);
     }
 }
 

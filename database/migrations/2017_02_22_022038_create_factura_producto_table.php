@@ -17,7 +17,8 @@ class CreateFacturaProductoTable extends Migration
             $table->increments('id');
             $table->integer('factura')->unsigned();
             $table->foreign('factura')->references('id')->on('factura')->onDelete('restrict')->onUpdate('cascade');
-            $table->integer('producto');
+            $table->integer('producto')->unsigned();
+            $table->foreign('producto')->references('id')->on('producto')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('cantidad');
             $table->integer('descuento');
             $table->timestamps();
