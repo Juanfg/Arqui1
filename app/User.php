@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function folios()
+    {
+        return $this->belongsToMany('App\User', 'folios_users');
+    }
 }
