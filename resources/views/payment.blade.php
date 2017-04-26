@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-xs-12">
+<div class="col-xs-12 messages">
 
   <div class="col-xs-12">
     <div class="panel panel-default">
@@ -23,7 +23,7 @@
              Tus folios
           </div>
           <div class="panel-body">
-              <p>Te informamos que tienes <b>{{ $usuario_folios }}</b> folios</p>
+              <p>Te informamos que tienes <b><span>{{ $usuario_folios }}</span></b> folios</p>
           </div>
           <div class="panel-footer">
               Toma en cuenta que usas un folio cada que emites una factura.<br> No recuperas los folios de facturas canceladas

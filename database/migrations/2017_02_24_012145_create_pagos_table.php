@@ -18,7 +18,8 @@ class CreatePagosTable extends Migration
             $table->integer('cli_sistema')->unsigned();
             $table->foreign('cli_sistema')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('cantidad')->unsigned();
-            $table->double('precio');
+            $table->integer('folio_id')->unsigned();
+            $table->foreign('folio_id')->references('id')->on('folios')->onDelete('restrict')->onUpdate('cascade');
             $table->string('referencia');
             $table->timestamps();
         });

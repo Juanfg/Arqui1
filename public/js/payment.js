@@ -9,24 +9,27 @@ $( document ).ready(function() {
     $("#comprar").click(function() {
         var folios = $('.bk-clr-three').attr('data-id');
         var params = $(':input').serializeArray();
-        var using = [];
-        using['folios'] = folios;
-
+        var using = {};
+        using['folio'] = folios;
+        using['_method'] = 'POST';
         $.each(params, function(key,value){
             using[value.name] = value.value;
         });
 
-        $.post('payment/', using, function(response){
-            if (response.success)
-            {
-                
-            }
-            else
-            {
-
-            }
-        }).fail(function(){
-            alert("Lo siento. No pude comprar folios, comunicate con soporte tecnico");
-        });
+        var r = confirm("Estas seguro de que deseas realizar la transacci&oacute;n?");
+        if (r){
+            $.post('/payment', using, function(response){
+                $('messages').html("");
+                if (response.success)
+                {
+                    $('.panel-body span').text(response.usuario_folios);
+                    $('.messages').prepend("<div class='alert alert-success'><a class='close' data-dismiss='alert' aria-label='close'>&times;</a>Pago exitoso! Gracias por su compra.</div>")
+                }
+                else
+                    $('.messages').prepend("<div class='alert alert-danger'><a class='close' data-dismiss='alert' aria-label='close'>&times;</a>Hubo un problema con su pago. Revise bien sus datos.</div>")
+            }).fail(function(){
+                alert("Lo siento. No pude comprar folios, comunicate con soporte tecnico");
+            });
+        }
     });
 });
