@@ -50,10 +50,9 @@ class ClientesController extends Controller
     {
         $this->validate($request, [
             'nombre'    => 'required|string',
-            'rfc'       => 'required|string',
+            'rfc'       => 'required|rfc',
             'direccion' => 'required|string',
             'exterior'  => 'required|numeric',
-            'interior'  => 'numeric',
             'colonia'   => 'required|string',
             'cp'        => 'required|numeric',
             'delegacion'=> 'required|string',
@@ -136,10 +135,9 @@ class ClientesController extends Controller
     {
         $this->validate($request, [
             'nombre'    => 'required|string',
-            'rfc'       => 'required|string',
+            'rfc'       => 'required|rfc',
             'direccion' => 'required|string',
             'exterior'  => 'required|numeric',
-            'interior'  => 'numeric',
             'colonia'   => 'required|string',
             'cp'        => 'required|numeric',
             'delegacion'=> 'required|string',

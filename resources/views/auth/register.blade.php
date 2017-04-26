@@ -20,12 +20,14 @@
 
 </div>
 
+<form role="form" method="POST" action="{{ route('register') }}">
+{{ csrf_field() }}
 <div class="col-xs-12">
   <div class="form-group col-sm-6 col-xs-12">
     <label for="nombre">Raz&oacute;n social:</label>
     <div class="input-group">
       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-      <input class="form-control" type="text" name="nombre" placeholder="Nombre o raz&oacute;n social" id="razon">
+      {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre o razon social']) !!}
     </div>
   </div>
 
@@ -33,26 +35,25 @@
     <label for="rfc">RFC:</label>
     <div class="input-group">
       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-      <input class="form-control" type="text" name="rfc" id="rfc" placeholder="LOXR990101ABC">
+      {!! Form::text('rfc', null, ['class' => 'form-control', 'placeholder' => 'LOXR990101ABC']) !!}      
     </div>
   </div>
 </div>
 
 <div class="form-group col-sm-12 col-xs-12">
-
   <div class="input-group col-xs-12">
     <label for="dir" class="col-xs-12">Direcci&oacute;n:</label>
     <div class="form-group col-sm-6">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-        <input class="form-control" type="text" name="direccion" placeholder="Calle" id="calle">
+        {!! Form::text('direccion', null, ['class' => 'form-control', 'placeholder' => 'Calle']) !!}   
       </div>
     </div>
     <div class="form-group col-sm-3 col-xs-12">
       <div class="input-group col-xs-12">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-home"></i></span>
-          <input class="form-control" type="text" name="exterior" placeholder="Num ext" id="next">
+          {!! Form::text('exterior', null, ['class' => 'form-control', 'placeholder' => 'Num ext']) !!}   
         </div>
       </div>
     </div>
@@ -60,7 +61,7 @@
       <div class="input-group col-xs-12">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-building"></i></span>
-          <input class="form-control" type="text" name="interior" placeholder="Num int" id="nint">
+          {!! Form::text('interior', null, ['class' => 'form-control', 'placeholder' => 'Num int']) !!}   
         </div>
       </div>
     </div>
@@ -69,14 +70,14 @@
   <div class="form-group col-sm-6 col-xs-12">
     <div class="input-group col-xs-12">
         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-        <input class="form-control" type="text" name="colonia" placeholder="Colonia" id="colonia">
+        {!! Form::text('colonia', null, ['class' => 'form-control', 'placeholder' => 'Colonia']) !!}   
     </div>
   </div>
 
   <div class="form-group col-sm-6">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-        <input class="form-control" type="text" name="cp" placeholder="CP" id="cp">
+        {!! Form::text('cp', null, ['class' => 'form-control', 'placeholder' => 'CP']) !!}   
       </div>
   </div>
 
@@ -85,54 +86,21 @@
     <div class="form-group col-sm-4">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-        <input class="form-control" type="text" name="delegacion" placeholder="Delegacion" id="delegacion">
+        {!! Form::text('delegacion', null, ['class' => 'form-control', 'placeholder' => 'Delegacion']) !!}   
       </div>
     </div>
 
     <div class="form-group col-sm-4">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-        <input class="form-control" type="text" name="municipio" placeholder="Municipio" id="municipio">
-      </div>
+        {!! Form::text('municipio', null, ['class' => 'form-control', 'placeholder' => 'Municipio']) !!}   
+      </div>  
     </div>
 
     <div class="form-group col-sm-4">
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-        <select name="estados" class="form-control" id="estado">
-          <option value="1">Aguascalientes</option>
-          <option value="2">Baja California</option>
-          <option value="3">Baja California Sur</option>
-          <option value="4">Campeche</option>
-          <option value="5">Coahuila</option>
-          <option value="6">Colima</option>
-          <option value="7">Chiapas</option>
-          <option value="8">Chihuahua</option>
-          <option value="9">Distrito Federal</option>
-          <option value="10">Durango</option>
-          <option value="11">Guanajuato</option>
-          <option value="12">Guerrero</option>
-          <option value="13">Hidalgo</option>
-          <option value="14">Jalisco</option>
-          <option value="15">México</option>
-          <option value="16">Michoacán</option>
-          <option value="17">Morelos</option>
-          <option value="18">Nayarit</option>
-          <option value="19">Nuevo León</option>
-          <option value="20">Oaxaca</option>
-          <option value="21">Puebla</option>
-          <option value="22">Querétaro</option>
-          <option value="23">Quintana Roo</option>
-          <option value="24">San Luis Potosí</option>
-          <option value="25">Sinaloa</option>
-          <option value="26">Sonora</option>
-          <option value="27">Tabasco</option>
-          <option value="28">Tamaulipas</option>
-          <option value="29">Tlaxcala</option>
-          <option value="30">Veracruz</option>
-          <option value="31">Yucatán</option>
-          <option value="32">Zacatecas</option>
-        </select>
+          {!! Form::select('estados', $estados, null, ['class' => 'form-control']); !!}
       </div>
     </div>
     
@@ -142,14 +110,14 @@
     <label for="email">Email</label>
     <div class="input-group">
       <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-      <input class="form-control" type="text" name="email" placeholder="mail@example.com" id="email">
+      {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'mail@example.com']) !!}   
     </div>
   </div>
   <div class="form-group col-sm-6">
     <label for="email">Contrase&ntilde;a</label>
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-      <input class="form-control" type="password" name="password" placeholder="La que usaras para entrar al sistema" id="email">
+      {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'La que usaras para entrar al sistema']) !!}   
     </div>
   </div>
 
@@ -167,7 +135,7 @@
     <label for="email">Contrase&ntilde;a de la llave</label>
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-      <input class="form-control" type="password" name="password" placeholder="Sin este dato no podremos facturar para ti" id="email">
+      {!! Form::password('password-factura', ['class' => 'form-control', 'placeholder' => 'Sin este dato no podremos facturar para ti']) !!}   
     </div>
   </div>
 
@@ -175,4 +143,6 @@
 <div class="col-xs-12 col-sm-offset-3 col-sm-6">
   <button class="btn btn-success btn-block">Registrar</button>
 </div>
+
+</form>
 @endsection

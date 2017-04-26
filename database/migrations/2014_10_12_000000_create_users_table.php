@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->foreign('datos_facturacion')->references('id')->on('datos_cli')->onDelete('restrict')->onUpdate('cascade');
             $table->string('key');
             $table->string('cer');
-            $table->string('password_cer');
+            $table->string('password_cer', 500);
             $table->timestamps();
         });
     }

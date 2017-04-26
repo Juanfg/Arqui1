@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Direccion;
+use App\DatosCli;
+use App\CliSistema;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Crypt;
 
 class RegisterController extends Controller
 {
@@ -48,9 +52,18 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'nombre'            => 'required|max:255',
+            'email'             => 'required|email|max:255|unique:users',
+            'password'          => 'required|min:6',
+            'rfc'               => 'required|rfc',
+            'direccion'         => 'required|string',
+            'exterior'          => 'required|numeric',
+            'colonia'           => 'required|string',
+            'cp'                => 'required|numeric',
+            'delegacion'        => 'required|string',
+            'municipio'         => 'required|string',
+            'estados'           => 'required|numeric',
+            'password-factura'  => 'required|string'
         ]);
     }
 
@@ -62,10 +75,38 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $direccionAlreadyExists = Direccion::where('calle', $data['direccion'])->where('num_ext', $data['exterior'])
+                                                ->where('num_int', $data['interior'])->where('colonia', $data['colonia'])
+                                                ->where('cp', $data['cp'])->where('delegacion', $data['delegacion'])
+                                                ->where('municipio', $data['municipio'])->where('estado', $data['estados'])->first();
+
+        $direccion = $direccionAlreadyExists ? $direccionAlreadyExists :
+        Direccion::create([
+            'calle'     => $data['direccion'],
+            'num_ext'   => $data['exterior'],
+            'num_int'   => $data['interior'],
+            'colonia'   => $data['colonia'],
+            'cp'        => $data['cp'],
+            'delegacion'=> $data['delegacion'],
+            'municipio' => $data['municipio'],
+            'estado'    => $data['estados']        
+        ]);
+
+        $datos_cli = DatosCli::create([
+            'razon_social'  => $data['nombre'],
+            'rfc'           => $data['rfc'],
+            'direccion'     => $direccion->id,
+            'email'         => $data['email']
+        ]);
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'email'             => $data['email'],
+            'password'          => bcrypt($data['password']),
+            'timbres'           => 0,
+            'datos_facturacion' => $datos_cli->id,
+            'key'               => str_random(20),
+            'cer'               => str_random(20),
+            'password_cer'      => Crypt::encryptString($data['password-factura'])
         ]);
     }
 }
