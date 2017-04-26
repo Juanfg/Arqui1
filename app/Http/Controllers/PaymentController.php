@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Folio;
+use App\Pago;
 
 class PaymentController extends Controller
 {
@@ -38,17 +39,30 @@ class PaymentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $validator = Validator::make($request->all(), [
             'nombre'    => 'required|string',
             'tarjeta'   => 'required|tarjetaDeCredito',
-            'llave'     => 'required|size:3'
+            'llave'     => 'required|between:3,4',
+            'folio'     => 'required|numeric'
         ]);
 
         if ($validator->fails()) 
-            return ['success' => false, 'errors' => $validator->errors()];
+            return ['success' => false];
+        
+        $usuario = Auth::user();
+        $folio = Folio::where('id', $request['folio'])->first();
+        $pago = Pago::create([
+            'cli_sistema'       => $usuario->id,
+            'cantidad'          => $folio->cantidad,
+            'referencia' => str_random(20),
+            'folio_id'          => $folio->id
+        ]);
 
-        return ['success' => true]; 
+        $usuario->timbres += $folio->cantidad;
+        $usuario->save();
+
+        return ['success' => true, 'usuario_folios' => $usuario->timbres]; 
     }
 
     /**
