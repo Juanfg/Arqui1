@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Folio;
 
 class PaymentController extends Controller
 {
@@ -13,7 +15,9 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        return view('payment');
+        $usuario = Auth::user();
+        $folios = Folio::all();
+        return view('payment', ['usuario_folios' => $usuario->timbres, 'folios' => $folios]);
     }
 
     /**
@@ -34,7 +38,14 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre'    => 'required|string',
+            'tarjeta'   => 'required|string',
+            'llave'     => 'required|string'
+        ]);
+
+        
+        return ['success' => true]; 
     }
 
     /**
@@ -45,7 +56,7 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

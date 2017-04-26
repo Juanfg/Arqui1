@@ -23,7 +23,7 @@
              Tus folios
           </div>
           <div class="panel-body">
-              <p>Te informamos que tienes <b>10</b> folios</p>
+              <p>Te informamos que tienes <b>{{ $usuario_folios }}</b> folios</p>
           </div>
           <div class="panel-footer">
               Toma en cuenta que usas un folio cada que emites una factura.<br> No recuperas los folios de facturas canceladas
@@ -44,7 +44,7 @@
     <label for="rfc">Numero de tarjeta:</label>
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-      <input class="form-control" type="text" name="rfc" id="rfc" placeholder="XXXX XXXX XXXX XXXX">
+      <input class="form-control" type="text" name="tarjeta" id="tarjeta" placeholder="XXXX XXXX XXXX XXXX">
     </div>
 </div>
 <div class="input-group col-sm-6 col-lg-2 col-xs-12">
@@ -52,55 +52,37 @@
   <div class="form-group col-xs-12">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-      <input class="form-control" type="password" name="direccion" placeholder="XXX" id="calle">
+      <input class="form-control" type="password" name="llave" placeholder="XXX" id="llave">
     </div>
   </div>
 </div>
 
 <!-- Inicia productos -->
  <div class="row">
-  <div class="col-sm-6 col-md-3 col-xs-12">
-    <div class="dashboard-div-wrapper bk-clr-four">
-      <i  class="fa fa-ticket dashboard-div-icon" ></i>
-      <div class="progress progress-striped complete"></div>     
-      <h5>5 Folios</h5>          
-      <h5>$100 </h5>          
+  @foreach ($folios as $folio)
+    <div class="form-group col-sm-6 col-md-3 col-xs-12">
+      <div data-id="{{ $folio->id }}" class="button dashboard-div-wrapper bk-clr-two">
+          <i  class="fa fa-ticket dashboard-div-icon" ></i>
+          <div class="progress progress-striped complete"></div> 
+          <h5>{{ $folio->cantidad }} folios</h5>          
+          <h5>${{ $folio->precio }}</h5>         
+      </div>
     </div>
-  </div>  
-  <div class="col-sm-6 col-md-3 col-xs-12">
-    <div class="dashboard-div-wrapper bk-clr-one">
-      <i  class="fa fa-ticket dashboard-div-icon" ></i>
-      <div class="progress progress-striped complete"></div>     
-      <h5>10 Folios </h5>          
-      <h5>$180 </h5>          
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-3 col-xs-12">
-    <div class="dashboard-div-wrapper bk-clr-two">
-      <i  class="fa fa-ticket dashboard-div-icon" ></i>
-      <div class="progress progress-striped complete"></div>     
-      <h5>100 Folios </h5>          
-      <h5>$1500 </h5>          
-    </div>
-  </div>  
-  <div class="col-sm-6 col-md-3 col-xs-12">
-    <div class="dashboard-div-wrapper bk-clr-three">
-      <i  class="fa fa-ticket dashboard-div-icon" ></i>
-      <div class="progress progress-striped complete"></div>     
-      <h5>500 Folios </h5>          
-      <h5>$6000 </h5>          
-    </div>
-  </div>  
+  @endforeach
 </div>
-<!-- Termina productos -->
 
-    
+<!-- Termina productos -->
 
 </div>
 <div class="col-xs-12 col-sm-offset-3 col-sm-6">
   <p><b>Nuestro sistema no almacena ning&uacute;n tipo de informaci&oacute;n de tu tarjeta</b></p>
 </div>
 <div class="col-xs-12 col-sm-offset-3 col-sm-6">
-  <button class="btn btn-success btn-block">Comprar</button>
+  <button class="btn btn-success btn-block" id="comprar">Comprar</button>
 </div>
+
 @endsection
+
+@push('scripts')
+  <script src="{{ asset('js/payment.js') }}"></script>
+@endpush

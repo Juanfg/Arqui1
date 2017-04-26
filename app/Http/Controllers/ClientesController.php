@@ -52,10 +52,10 @@ class ClientesController extends Controller
             'nombre'    => 'required|string',
             'rfc'       => 'required|string',
             'direccion' => 'required|string',
-            'exterior'  => 'required|string',
-            'interior'  => 'required|string',
+            'exterior'  => 'required|numeric',
+            'interior'  => 'numeric',
             'colonia'   => 'required|string',
-            'cp'        => 'required|string',
+            'cp'        => 'required|numeric',
             'delegacion'=> 'required|string',
             'municipio' => 'required|string',
             'estados'   => 'required|string',
@@ -138,22 +138,18 @@ class ClientesController extends Controller
             'nombre'    => 'required|string',
             'rfc'       => 'required|string',
             'direccion' => 'required|string',
-            'exterior'  => 'required|string',
-            'interior'  => 'required|string',
+            'exterior'  => 'required|numeric',
+            'interior'  => 'numeric',
             'colonia'   => 'required|string',
-            'cp'        => 'required|string',
+            'cp'        => 'required|numeric',
             'delegacion'=> 'required|string',
             'municipio' => 'required|string',
             'estados'   => 'required|string',
             'email'     => 'required|email'
         ]);
 
-        $cliente = Cliente::where('id', $id)->firstOrFail();
-        $updating = $request->only('rfc', 'email');
-        $updating['razon_social'] = $request->nombre;
-        $updating['duenio'] = Auth::id();
 
-        $clienteAlreadyExists = Cliente::where('rfc', $request->rfc)->where('id', '<>', $id)->count();
+        $clienteAlreadyExists = Cliente::where('rfc', $request->rfc)->where('visible', true)->where('id', '<>', $id)->count();
         if ($clienteAlreadyExists == 0)
         {
             $direccionAlreadyExists = Direccion::where('calle', $request->direccion)->where('num_ext', $request->exterior)
@@ -174,8 +170,26 @@ class ClientesController extends Controller
                 'visible'   => true
             ]);
 
-            $updating['direccion'] = $direccion->id;
-            $cliente->update($updating);
+            $clienteIsTheSame = Cliente::where('razon_social', $request->nombre)->where('rfc', $request->rfc)
+                                        ->where('direccion', $direccion->id)->where('duenio', Auth::id())
+                                        ->where('email', $request->email)->where('visible', true)->count();
+
+            if ($clienteIsTheSame == 0)
+            {
+                Cliente::create([
+                    'razon_social'  => $request->nombre,
+                    'rfc'           => $request->rfc,
+                    'direccion'     => $direccion->id,
+                    'duenio'        => Auth::id(),
+                    'email'         => $request->email,
+                    'visible'       => true
+                ]);
+            }
+            else
+            {
+                $request->session()->flash('error', 'No se cambi&oacute; ning&uacute;n dato del cliente');
+                return back()->withInput();
+            }
         }
         else
         {
