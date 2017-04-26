@@ -45,7 +45,7 @@
       <label for="nombre">Raz&oacute;n social:</label>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input class="form-control" type="text" name="nombre" placeholder="Nombre o raz&oacute;n social" id="razon" value="{{$cliente ? $cliente->razon_social : ""}}">
+        {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre o razon social']) !!}
       </div>
     </div>
 
@@ -53,7 +53,7 @@
       <label for="rfc">RFC:</label>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input class="form-control" type="text" name="rfc" id="rfc" placeholder="LOXR990101ABC" value="{{$cliente ? $cliente->rfc : ""}}">
+        {!! Form::text('rfc', null, ['class' => 'form-control', 'placeholder' => 'rfc']) !!}
       </div>
     </div>
   </div>
@@ -65,14 +65,14 @@
       <div class="form-group col-sm-6">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-          <input class="form-control" type="text" name="direccion" placeholder="Calle" id="calle" value="{{$cliente ? $direccion->calle : ""}}">
+          {!! Form::text('direccion', null, ['class' => 'form-control', 'placeholder' => 'Calle']) !!}
         </div>
       </div>
       <div class="form-group col-sm-3 col-xs-12">
         <div class="input-group col-xs-12">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-home"></i></span>
-            <input class="form-control" type="text" name="exterior" placeholder="Num ext" id="next" value="{{$cliente ? $direccion->num_ext : ""}}">
+            {!! Form::text('exterior', null, ['class' => 'form-control', 'placeholder' => 'Num ext']) !!}
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
         <div class="input-group col-xs-12">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-building"></i></span>
-            <input class="form-control" type="text" name="interior" placeholder="Num int" id="nint" value="{{$cliente && $direccion->num_int ? $direccion->num_int : ""}}">
+            {!! Form::text('interior', null, ['class' => 'form-control', 'placeholder' => 'Num int']) !!}
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@
     <div class="form-group col-sm-6">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-          <input class="form-control" type="text" name="cp" placeholder="CP" id="cp" value="{{$cliente ? $direccion->cp : ""}}">
+          {!! Form::text('cp', null, ['class' => 'form-control', 'placeholder' => 'CP']) !!}
         </div>
     </div>
 
@@ -105,25 +105,21 @@
       <div class="form-group col-sm-4">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-          <input class="form-control" type="text" name="delegacion" placeholder="Delegacion" id="delegacion" value="{{$cliente ? $direccion->delegacion : ""}}">
+          {!! Form::text('delegacion', null, ['class' => 'form-control', 'placeholder' => 'Delegacion']) !!}
         </div>
       </div>
 
       <div class="form-group col-sm-4">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-          <input class="form-control" type="text" name="municipio" placeholder="Municipio" id="municipio" value="{{$cliente ? $direccion->municipio : ""}}">
+          {!! Form::text('municipio', null, ['class' => 'form-control', 'placeholder' => 'Municipio']) !!}
         </div>
       </div>
 
       <div class="form-group col-sm-4">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-          <select name="estados" class="form-control" id="estado">
-            @foreach ($estados as $estado)
-              <option value="{{$estado->id}}" {{ $cliente && $estado->id == $direccion->estado ? "selected" : "" }}>{{$estado->nombre}}</option>
-            @endforeach
-          </select>
+          {!! Form::select('estados', $estados); !!}
         </div>
       </div>
       
@@ -133,7 +129,7 @@
       <label for="email">Email</label>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        <input class="form-control" type="text" name="email" placeholder="mail@example.com" id="email" value="{{$cliente ? $cliente->email : ""}}">
+        {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'mail@example.com']) !!}
       </div>
     </div>
   </div>

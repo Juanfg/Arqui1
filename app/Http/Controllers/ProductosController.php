@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use App\Producto;
 
 class ProductosController extends Controller
@@ -32,7 +33,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        return view('productos.create', ['producto' => null]);
+        return view('productos.create');
     }
 
     /**
@@ -43,7 +44,34 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'nombre' => 'required|string',
+            'unidad' => 'required|string',
+            'precio' => 'required|numeric',
+            'ieps' => 'boolean',
+            'iva' => 'boolean',
+        ]);
+
+        $array = $request->all();
+
+        if(!isset($array['ieps']))
+            $array['ieps'] = 0;
+
+        if(!isset($array['iva']))
+            $array['iva'] = 0;
+        
+
+        $user = Auth::id();
+
+        $exists = Producto::where('nombre', $request->nombre)->where('duenio', $user)->where('visible', 1)->count();
+        if($exists != 0){
+            return back()->withInput()->withErrors(['nombre' => 'El nombre ya existe. Por favor elige otro']);
+        }
+
+        $array['duenio'] = $user;
+        Producto::create($array);
+        return redirect()->route('productos.index')->with('success', 'Producto creado con &eacute;xito');
     }
 
     /**
@@ -54,7 +82,8 @@ class ProductosController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::id();
+        return Producto::where('id', $id)->where('duenio', $user)->firstOrFail();
     }
 
     /**
@@ -65,7 +94,8 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        $producto = Producto::where('id', $id)->firstOrFail();
+        $user = Auth::id();
+        $producto = Producto::where('id', $id)->where('duenio', $user)->firstOrFail();
         return view('productos.create', ['producto' => $producto]);
     }
 
@@ -78,7 +108,45 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $actual = Producto::where('id', $id)->firstOrFail();
+
+        $this->validate($request, [
+            'nombre' => 'required|string',
+            'unidad' => 'required|string',
+            'precio' => 'required|numeric',
+            'ieps' => 'boolean',
+            'iva' => 'boolean',
+        ]);
+
+        $array = $request->all();
+
+        if(!isset($array['ieps']))
+            $array['ieps'] = 0;
+
+        if(!isset($array['iva']))
+            $array['iva'] = 0;
+        
+
+        $user = Auth::id();
+
+        $exists = Producto::where('nombre', $request->nombre)->where('duenio', $user)->where('visible', 1)->where('id', '<>', $id)->count();
+        if($exists != 0){
+            return back()->withInput()->withErrors(['nombre' => 'El nombre ya existe. Por favor elige otro']);
+        }
+
+        if($actual->facturas()->count() == 0){
+            // Protegemos el duenio contra modifcacion
+            unset($array['duenio']);
+            $actual->update($array);
+        }
+        else{
+            $array['duenio'] = $user;
+            $actual->update(['visible' => 0]);
+            $actual->create($array);
+        }
+
+        return redirect()->route('productos.index')->with('success', 'Producto editado con &eacute;xito');
     }
 
     /**
@@ -89,6 +157,14 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::id();
+        $actual = Producto::where('id', $id)->where('duenio', $user)->firstOrFail();
+        if($actual->facturas()->count() == 0)
+            $actual->delete();
+        else{
+            $actual->visible = 0;
+            $actual->save();
+        }
+        return ['success' => true];
     }
 }

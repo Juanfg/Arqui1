@@ -12,16 +12,27 @@ $( document ).ready(function() {
 	});
 
 	$(".borrar").click(function(){
-		$(this).closest('tr').attr('data-id');
-		var r = confirm("Estas seguro de que deseas borrar a este producto. Esto no se puede deshacer");
+		var id = $(this).closest('tr').attr('data-id');
+		var r = confirm("Estas seguro de que deseas borrar a este cliente. Esto no se puede deshacer");
 		if (r) {
-		    $(this).closest('tr').fadeOut();
+			$(this).closest('tr').fadeOut();
+			$.post('productos/' + id, { _method : "DELETE", _token: $('#crsf').html() }, function(response){
+				if(response.success)
+					$(this).closest('tr').remove();
+				else{
+					alert("Lo siento. No pude eliminar, comunicate con soporte tecnico");
+					$(this).closest('tr').fadeIn();
+				}
+			}).fail(function(){
+				alert("Lo siento. No pude eliminar, comunicate con soporte tecnico");
+				$(this).closest('tr').fadeIn();
+			});
+		   
 		}
 	});
 
 	$("#done").click(function(){
-		var url = "/productos";
-		$(location).attr('href',url);
+		//$(this).closest('form').submit();
 	});
 	
 });

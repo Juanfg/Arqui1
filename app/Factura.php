@@ -13,12 +13,24 @@ class Factura extends Model
     	return $this->belongsTo('App\Cliente', 'cliente')->first();
     }
 
+    public function facturador(){
+        return $this->belongsTo('App\DatosCli', 'datos_cli')->first();
+    }
+
     public function productos(){
-    	$this->belongsTo('App\Producto', 'factura')->first();
+        return $this->belongsToMany('App\Producto', 'factura_producto' , 'factura', 'producto')
+            ->withPivot('cantidad', 'descuento');
     }
 
     public function monto(){
-    	return 200.0;
+    	$productos = $this->productos()->get();
+        $suma = 0;
+
+
+        foreach ($productos as $producto) {
+           $suma += ($producto->pivot->cantidad * $producto->precio) * (100 - $producto->pivot->descuento) / 100;
+        }
+        return $suma;
     }
 
 }

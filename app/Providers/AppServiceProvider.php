@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('tarjetaDeCredito', function($attribute, $value, $parameters, $validator) {
             $digits = str_split($value);
             $len = count($digits);
+
+            if ($len < 13)
+                return false;
+
             $value = 0;
             for ($i = 0; $i < $len; $i+=2)
             {
@@ -30,8 +34,7 @@ class AppServiceProvider extends ServiceProvider
             }
             for ($i = 0; $i < $len; $i++)
                 $value += $digits[$i];
-            var_dump($value);
-            return true;
+            return $value%10 == 0;
         });
 
         Validator::extend('rfc', function($attribute, $value, $parameters, $validator) {

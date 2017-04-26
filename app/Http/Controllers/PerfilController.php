@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\CliSistema;
+use App\User;
+use App\Estado;
 
 class PerfilController extends Controller
 {
+
+    function __construct(){
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +23,16 @@ class PerfilController extends Controller
     public function index()
     {
         $idCliSistema = Auth::id();
-        $perfil = CliSistema::where('id', $idCliSistema)->first();
-        $datosGenerales = CliSistema::find($idCliSistema)->datos();
-        return view('perfil', ['perfil' => $perfil, 'datosGenerales' => $datosGenerales]);
+        $perfil = User::where('id', $idCliSistema)->first();
+        $datosGenerales = $perfil->datos_facturacion();
+        $estados = Estado::pluck('nombre', 'id');
+        
+        return view('perfil', [
+            'perfil' => $perfil,
+            'datosGenerales' => $datosGenerales,
+            'direccion' => $datosGenerales->direccion(),
+            'estados' => $estados,
+        ]);
     }
 
     /**
@@ -59,9 +73,9 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $request)
     {
-        //
+
     }
 
     /**

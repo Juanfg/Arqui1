@@ -37,7 +37,8 @@ class ClientesController extends Controller
      */
     public function create()
     {
-        return view('clientes.create', ['cliente' => null, 'estados' => Estado::all()]);
+        $estados = Estado::pluck('nombre', 'id');
+        return view('clientes.create', ['cliente' => null, 'estados' => $estados]);
     }
 
     /**
@@ -109,7 +110,11 @@ class ClientesController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::id();
+        $cliente = Cliente::where('id',$id)->where('duenio', $user)->firstOrFail();
+        $cliente->direccion = $cliente->direccion();
+        $cliente->direccion->estado = $cliente->direccion->estado()->first()->nombre;
+        return $cliente;
     }
 
     /**
@@ -207,7 +212,8 @@ class ClientesController extends Controller
      */
     public function destroy($id)
     {
-        $cliente = Cliente::where('id', $id)->firstOrFail();
+        $user = Auth::id();
+        $cliente = Cliente::where('id', $id)->where('duenio', $user)->firstOrFail();
         $cliente->visible = 0;
         $cliente->save();
         return ['success' => true];

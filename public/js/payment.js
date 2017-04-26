@@ -9,9 +9,9 @@ $( document ).ready(function() {
     $("#comprar").click(function() {
         var folios = $('.bk-clr-three').attr('data-id');
         var params = $(':input').serializeArray();
-        var using = [];
-        using['folios'] = folios;
-
+        var using = {};
+        using['folio'] = folios;
+        using['_method'] = 'POST';
         $.each(params, function(key,value){
             using[value.name] = value.value;
         });

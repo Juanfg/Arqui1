@@ -16,6 +16,8 @@
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet" />
     <!-- CUSTOM STYLE  -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+
+    @stack('style')
      <!-- HTML5 Shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -53,7 +55,7 @@
                             <div class="dropdown-menu dropdown-settings">
                                 <div class="media">
                                     <a class="media-left" href="#">
-                                        <img src="{{ asset('img/selene.jpg') }}" alt="" class="img-rounded" />
+                                        <img src="{{ Auth::user()->picture_path ? Auth::user()->picture_path : asset('img/selene.jpg') }}" alt="" class="img-rounded" />
                                     </a>
                                     <div class="media-body">
                                         <h5 class="media-heading">{{ App\CliSistema::find(Auth::id())->datos()->razon_social }} </h5>
@@ -123,6 +125,20 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>

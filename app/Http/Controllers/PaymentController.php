@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Folio;
+use App\Pago;
 
 class PaymentController extends Controller
 {
+
+    function __construct(){
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -38,14 +45,29 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'nombre'    => 'required|string',
-            'tarjeta'   => 'required|string',
-            'llave'     => 'required|string'
+            'tarjeta'   => 'required|tarjetaDeCredito',
+            'llave'     => 'required|between:3,4',
+            'folio'     => 'required|numeric'
         ]);
 
+        if ($validator->fails()) 
+            return ['success' => false];
         
-        return ['success' => true]; 
+        $usuario = Auth::user();
+        $folio = Folio::where('id', $request['folio'])->first();
+        $pago = Pago::create([
+            'cli_sistema'       => $usuario->id,
+            'cantidad'          => $folio->cantidad,
+            'referencia' => str_random(20),
+            'folio_id'          => $folio->id
+        ]);
+
+        $usuario->timbres += $folio->cantidad;
+        $usuario->save();
+
+        return ['success' => true, 'usuario_folios' => $usuario->timbres]; 
     }
 
     /**
