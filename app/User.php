@@ -31,4 +31,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\User', 'pago', 'cli_sistema', 'folio_id');
     }
+
+    function datos_facturacion(){
+        return $this->belongsTo('App\DatosCli', 'datos_facturacion')->first();
+    }
 }

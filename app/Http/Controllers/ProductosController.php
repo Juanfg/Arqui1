@@ -82,7 +82,8 @@ class ProductosController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::id();
+        return Producto::where('id', $id)->where('duenio', $user)->firstOrFail();
     }
 
     /**
@@ -93,7 +94,8 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        $producto = Producto::where('id', $id)->firstOrFail();
+        $user = Auth::id();
+        $producto = Producto::where('id', $id)->where('duenio', $user)->firstOrFail();
         return view('productos.create', ['producto' => $producto]);
     }
 
@@ -155,7 +157,8 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        $actual = Producto::where('id', $id)->firstOrFail();
+        $user = Auth::id();
+        $actual = Producto::where('id', $id)->where('duenio', $user)->firstOrFail();
         if($actual->facturas()->count() == 0)
             $actual->delete();
         else{
