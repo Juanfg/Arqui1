@@ -17,6 +17,7 @@ class FacturasController extends Controller
 
     function __construct(){
         $this->middleware('auth');
+        $this->middleware('folios', ['only' => ['create', 'store']]);
     }
     /**
      * Display a listing of the resource.
@@ -36,7 +37,7 @@ class FacturasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {  
         $id = Auth::id();
         $productos = Producto::where('duenio', $id)->where('visible', 1)->get();
         $clientes = Cliente::where('duenio', $id)->where('visible', 1)->get();
@@ -104,8 +105,9 @@ class FacturasController extends Controller
             ]);
         }
 
-        // Creamos la factura
-
+        $user_model = Auth::user();
+        $user_model->timbres--;
+        $user_model->save();
         return ["success" => true];
     }
 
