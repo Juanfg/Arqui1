@@ -11,19 +11,20 @@ $( document ).ready(function() {
         var params = $(':input').serializeArray();
         var using = [];
         using['folios'] = folios;
-
+        using['_method'] = 'POST';
         $.each(params, function(key,value){
             using[value.name] = value.value;
         });
 
-        $.post('payment/', using, function(response){
+        $.post('/payment', using, function(response){
+            console.log(response);
             if (response.success)
             {
-                
+                alert('ok');
             }
             else
             {
-
+                alert('oh no');
             }
         }).fail(function(){
             alert("Lo siento. No pude comprar folios, comunicate con soporte tecnico");

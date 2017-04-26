@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Folio;
 
 class PaymentController extends Controller
@@ -37,14 +38,16 @@ class PaymentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $this->validate($request, [
+    {   
+        $validator = Validator::make($request->all(), [
             'nombre'    => 'required|string',
-            'tarjeta'   => 'required|string',
-            'llave'     => 'required|string'
+            'tarjeta'   => 'required|tarjetaDeCredito',
+            'llave'     => 'required|size:3'
         ]);
 
-        
+        if ($validator->fails()) 
+            return ['success' => false, 'errors' => $validator->errors()];
+
         return ['success' => true]; 
     }
 
