@@ -19,7 +19,7 @@ class Factura extends Model
 
     public function productos(){
         return $this->belongsToMany('App\Producto', 'factura_producto' , 'factura', 'producto')
-            ->withPivot('cantidad', 'descuento');;
+            ->withPivot('cantidad', 'descuento');
     }
 
     public function monto(){

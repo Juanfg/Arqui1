@@ -125,7 +125,7 @@
         <label for="nombre">Raz&oacute;n social:</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input class="form-control" type="text" name="nombre" placeholder="Nombre o raz&oacute;n social" id="razon" disabled value="{{$cliente->razon_social}}">
+          <input class="form-control" type="text" name="nombre" placeholder="Nombre o raz&oacute;n social" id="razon" disabled value="{{$facturador->razon_social}}">
         </div>
       </div>
 
@@ -133,7 +133,7 @@
         <label for="rfc">RFC:</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input class="form-control" type="text" name="rfc" id="rfc" placeholder="LOXR990101ABC" value="{{$cliente->rfc}}" disabled>
+          <input class="form-control" type="text" name="rfc" id="rfc" placeholder="LOXR990101ABC" value="{{$facturador->rfc}}" disabled>
         </div>
       </div>
     </div>
@@ -145,14 +145,14 @@
         <div class="form-group col-sm-6">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-            <input class="form-control" type="text" name="direccion" placeholder="Calle" id="calle" value="{{$direccion_cliente->calle}}" disabled>
+            <input class="form-control" type="text" name="direccion" placeholder="Calle" id="calle" value="{{$direccion_facturador->calle}}" disabled>
           </div>
         </div>
         <div class="form-group col-sm-3 col-xs-12">
           <div class="input-group col-xs-12">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-home"></i></span>
-              <input class="form-control" type="text" name="exterior" placeholder="Num ext" id="next" value="{{$direccion_cliente->num_ext}}" disabled>
+              <input class="form-control" type="text" name="exterior" placeholder="Num ext" id="next" value="{{$direccion_facturador->num_ext}}" disabled>
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@
           <div class="input-group col-xs-12">
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-building"></i></span>
-              <input class="form-control" type="text" name="interior" placeholder="Num int" id="nint" disabled value="{{$direccion_cliente->num_int}}">
+              <input class="form-control" type="text" name="interior" placeholder="Num int" id="nint" disabled value="{{$direccion_facturador->num_int}}">
             </div>
           </div>
         </div>
@@ -169,7 +169,7 @@
       <div class="form-group col-sm-6 col-xs-12">
         <div class="input-group col-xs-12">
           <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-          <input class="form-control" type="text" name="colonia" placeholder="Colonia" id="colonia" disabled value="{{$direccion_cliente->colonia}}">
+          <input class="form-control" type="text" name="colonia" placeholder="Colonia" id="colonia" disabled value="{{$direccion_facturador->colonia}}">
         </div>
       </div>
 
@@ -177,7 +177,7 @@
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
           <input class="form-control" type="text" name="cp" placeholder="CP" id="cp" disabled
-          value="{{$direccion_cliente->cp}}">
+          value="{{$direccion_facturador->cp}}">
         </div>
       </div>
 
@@ -186,21 +186,21 @@
         <div class="form-group col-sm-4">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-            <input class="form-control" type="text" name="delegacion" placeholder="Delegacion" id="delegacion" disabled value="{{$direccion_cliente->delegacion}}">
+            <input class="form-control" type="text" name="delegacion" placeholder="Delegacion" id="delegacion" disabled value="{{$direccion_facturador->delegacion}}">
           </div>
         </div>
 
         <div class="form-group col-sm-4">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-            <input class="form-control" type="text" name="municipio" placeholder="Municipio" id="municipio" disabled value="{{$direccion_cliente->municipio}}">
+            <input class="form-control" type="text" name="municipio" placeholder="Municipio" id="municipio" disabled value="{{$direccion_facturador->municipio}}">
           </div>
         </div>
 
         <div class="form-group col-sm-4">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-            <input class="form-control" type="text" name="estado" placeholder="Estado" id="estado" disabled value="{{$direccion_cliente->estado()->first()->nombre}}">
+            <input class="form-control" type="text" name="estado" placeholder="Estado" id="estado" disabled value="{{$direccion_facturador->estado()->first()->nombre}}">
           </div>
         </div>
       </div>
@@ -209,7 +209,7 @@
         <label for="email">Email</label>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-          <input class="form-control" type="text" name="email" placeholder="mail@example.com" id="email" disabled value="{{$cliente->email}}">
+          <input class="form-control" type="text" name="email" placeholder="mail@example.com" id="email" disabled value="{{$facturador->email}}">
         </div>
       </div>
     </div>
@@ -224,35 +224,29 @@
           <th class="hidden-xs">IEPS</th>
           <th>Cantidad</th>
           <th>Descuento</th>
-          <th>Acciones</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr class="base" hidden>
-          <td>
-            <div class="form-group">
-              <select name="producto[]" class="ignored form-control">
-                <option value="-1">Elige un producto</option>
-
-                @foreach ($productos as $producto)
-                <option value="{{$producto->id}}">{{$producto->nombre}}</option>
-                @endforeach
-              </select>
-            </div>
-          </td>
-          <td class="unidad updatable"></td>
-          <td class="precio updatable"></td>
-          <td class="iva hidden-xs updatable"></td>
-          <td class="ieps hidden-xs updatable"></td>
-          <td><input name="cantidad[]" class="cantidad ignored" type="number" placeholder="Introduce la cantidad"></td>
-          <td><input name="descuento[]" class="descuento ignored" type="number" placeholder="Introduce el descuento o 0.0" value="0.0"></td>
-          <td>
-            <button class="btn btn-danger btn-xs rm_product"><i class="fa fa-trash"></i></button>
-          </td>        
+        @foreach ($productos as $producto)
+        <tr>
+          <td> {{$producto->nombre}} </td>
+          <td class="unidad"> {{$producto->unidad}} </td>
+          <td class="precio">$ {{ number_format($producto->precio, 2, '.', ' ') }}</td>
+          <td class="iva hidden-xs">{{$producto->iva ? "Si" : "No"}}</td>
+          <td class="ieps hidden-xs">{{$producto->ieps ? "Si" : "No"}}</td>
+          <td>{{$producto->pivot->cantidad}}</td>
+          <td>{{$producto->pivot->descuento}} %</td>   
         </tr>
+        @endforeach      
       </tbody>
     </table>
+
+    <h3>Monto de la factura: <strong>$ {{ number_format($factura->monto(), 2, '.', ' ') }}</strong></h3>
+
+    @if($factura->cancelada)
+    <div class="alert alert-danger"> <strong>Esta factura est&aacute; cancelada</strong> </div>
+    @endif
 
     <div class="col-xs-12 col-sm-offset-3 col-sm-6">
       <button class="btn btn-success btn-block" id="done" role="button" href="facturas">Volver</button>
@@ -260,4 +254,14 @@
   @endsection
 
   @push('scripts')
+
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      $('#done').click(function(){
+        var url = "/facturas";
+        $(location).attr('href',url);
+      });
+    });
+    
+  </script>
   @endpush

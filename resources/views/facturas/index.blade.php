@@ -6,7 +6,10 @@
 
 @section('content')
     <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
+
+        <div id="options"></div>
+
+        <table class="table table-striped table-bordered table-hover" id="tabla-facturas">
             <thead>
                 <tr>
                     <th>Facturado a</th>
@@ -40,6 +43,13 @@
     </div>
 @endsection
 
-@push('scripts')
+
+@push('scripts') 
+    <script type="text/javascript" src="/js/datatables.min.js"></script>
+
     <script src="{{ asset('js/facturas.js') }}"></script>
+@endpush
+
+@push('style')
+    <link rel="stylesheet" type="text/css" href="/css/datatables.css"/>
 @endpush

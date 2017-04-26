@@ -1,5 +1,25 @@
 $( document ).ready(function() {
-   
+   	
+   	function createDataTable(){
+   		var table = $('#tabla-facturas').DataTable({
+	    	dom: "<'options'B><'col-sm-6'l><'col-sm-6'fr><'col-sm-12't><'col-sm-6'i><'col-sm-6'p>",
+	    	buttons: [
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5',
+            'copyHtml5'
+	        ],
+	        "language": {
+	            "url": "/js/data_tables_spanish.json"
+	        },
+   		});
+
+		var buttons = table.buttons().container();
+		$('#options').append( buttons );
+	}
+
+  	createDataTable();
+	
 	$("#cliente").change(function(){
 
 		var value = $(this).val();
@@ -84,7 +104,9 @@ $( document ).ready(function() {
 	});
 	
 	$(".mostrar").click(function(){
-		alert("Por el momento esta funcion no esta disponible");
+		var id = $(this).closest('tr').attr('data-id');
+		var url = "/facturas/" + id;
+		$(location).attr('href',url);
 	});
 
 	function cancelaFactura(row){

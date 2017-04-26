@@ -125,7 +125,7 @@ class FacturasController extends Controller
             'direccion_cliente' => $factura->cliente()->direccion(),
             'facturador' => $factura->facturador(),
             'direccion_facturador' => $factura->facturador()->direccion(),
-            'productos' => []
+            'productos' => $factura->productos()->get(),
         ]);
 
     }
