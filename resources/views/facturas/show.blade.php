@@ -244,6 +244,13 @@
 
     <h3>Monto de la factura: <strong>$ {{ number_format($factura->monto(), 2, '.', ' ') }}</strong></h3>
 
+    <h4>Otros datos de la factura</h4>
+    <ul>
+      <li>Fecha de creacion: {{$factura->fecha_creacion}}</li>
+      <li>Fecha de certifiación: {{$factura->fecha_creacion}}</li>
+      <li>Sello CFID: {{$factura->sello_cfdi}}</li>
+      <li>Sello SAT: {{$factura->sello_sat}}</li>
+    </ul>
     @if($factura->cancelada)
     <div class="alert alert-danger"> <strong>Esta factura est&aacute; cancelada</strong> </div>
     @endif

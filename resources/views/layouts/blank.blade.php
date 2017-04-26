@@ -55,7 +55,7 @@
                             <div class="dropdown-menu dropdown-settings">
                                 <div class="media">
                                     <a class="media-left" href="#">
-                                        <img src="{{ asset('img/selene.jpg') }}" alt="" class="img-rounded" />
+                                        <img src="{{ Auth::user()->picture_path ? Auth::user()->picture_path : asset('img/selene.jpg') }}" alt="" class="img-rounded" />
                                     </a>
                                     <div class="media-body">
                                         <h5 class="media-heading">{{ App\CliSistema::find(Auth::id())->datos()->razon_social }} </h5>

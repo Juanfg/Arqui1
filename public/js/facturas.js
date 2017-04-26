@@ -122,5 +122,9 @@ $( document ).ready(function() {
 			});
 		}
 	}
+
+	function deleteCell(){
+		$(this).closest('tr').remove();
+	}
 	
 });

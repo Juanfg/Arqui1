@@ -48,28 +48,27 @@
     <script type="text/javascript" src="/js/datatables.min.js"></script>
     <script src="{{ asset('js/facturas.js') }}"></script>
     <script type="text/javascript">
-        $( document ).ready(function() {
 
-            function createDataTable(){
-                var table = $('#tabla-facturas').DataTable({
-                    dom: "<'options'B><'col-sm-6'l><'col-sm-6'fr><'col-sm-12't><'col-sm-6'i><'col-sm-6'p>",
-                    buttons: [
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5',
-                    'copyHtml5'
-                    ],
-                    "language": {
-                        "url": "/js/data_tables_spanish.json"
-                    },
-                });
+        function createDataTable(){
+            var table = $('#tabla-facturas').DataTable({
+                dom: "<'options'B><'col-sm-6'l><'col-sm-6'fr><'col-sm-12't><'col-sm-6'i><'col-sm-6'p>",
+                buttons: [
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                'copyHtml5'
+                ],
+                "language": {
+                    "url": "/js/data_tables_spanish.json"
+                },
+            });
 
-                var buttons = table.buttons().container();
-                $('#options').append( buttons );
-            }
-
-            createDataTable();
+            var buttons = table.buttons().container();
+            $('#options').append( buttons );
         }
+
+        createDataTable();
+        
     </script>
 @endpush
 

@@ -27,4 +27,6 @@ Route::resource('perfil', 'PerfilController');
 
 Route::resource('payment', 'PaymentController');
 
+Route::get('img/{profile_image_path}', 'StorageController@img')->middleware('auth');
+
 Auth::routes();
