@@ -6,6 +6,7 @@ use App\User;
 use App\Direccion;
 use App\DatosCli;
 use App\CliSistema;
+use App\Estado;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -65,6 +66,15 @@ class RegisterController extends Controller
             'estados'           => 'required|numeric',
             'password-factura'  => 'required|string'
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+
+        $estados = Estado::pluck('nombre', 'id');
+        $data = ['estados' => $estados];
+
+        return view('auth.register', $data);
     }
 
     /**
