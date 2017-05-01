@@ -119,7 +119,7 @@
       <div class="form-group col-sm-4">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-          {!! Form::select("estados", $estados, $direccion->estado,[ 'class' => 'form-control' ]) !!}
+          {!! Form::select("estados", $estados, $estado,[ 'class' => 'form-control' ]) !!}
         </div>
       </div>
       

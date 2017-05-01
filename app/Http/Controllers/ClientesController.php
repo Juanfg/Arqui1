@@ -38,7 +38,7 @@ class ClientesController extends Controller
     public function create()
     {
         $estados = Estado::pluck('nombre', 'id');
-        return view('clientes.create', ['cliente' => null, 'estados' => $estados, 'cliente' => new Cliente, 'direccion' => new Direccion]);
+        return view('clientes.create', ['cliente' => null, 'estados' => $estados, 'cliente' => new Cliente, 'direccion' => new Direccion, 'estado' => -1]);
     }
 
     /**
@@ -127,7 +127,7 @@ class ClientesController extends Controller
     {
         $cliente = Cliente::where('id', $id)->firstOrFail();
         $estados = Estado::pluck('nombre', 'id');
-        return view('clientes.create', ['cliente' => $cliente, 'direccion' => $cliente->direccion(), 'estados' => $estados, 'cliente' => $cliente, 'direccion' => $cliente->direccion()]);
+        return view('clientes.create', ['cliente' => $cliente, 'direccion' => $cliente->direccion(), 'estados' => $estados, 'cliente' => $cliente, 'direccion' => $cliente->direccion(), 'estado' => $cliente->direccion()->estado]);
     }
 
     /**
