@@ -38,7 +38,7 @@ class ClientesController extends Controller
     public function create()
     {
         $estados = Estado::pluck('nombre', 'id');
-        return view('clientes.create', ['cliente' => null, 'estados' => $estados]);
+        return view('clientes.create', ['cliente' => null, 'estados' => $estados, 'cliente' => new Cliente, 'direccion' => new Direccion]);
     }
 
     /**
@@ -126,7 +126,8 @@ class ClientesController extends Controller
     public function edit($id)
     {
         $cliente = Cliente::where('id', $id)->firstOrFail();
-        return view('clientes.create', ['cliente' => $cliente, 'direccion' => $cliente->direccion(), 'estados' => Estado::all()]);
+        $estados = Estado::pluck('nombre', 'id');
+        return view('clientes.create', ['cliente' => $cliente, 'direccion' => $cliente->direccion(), 'estados' => $estados, 'cliente' => $cliente, 'direccion' => $cliente->direccion()]);
     }
 
     /**
@@ -138,6 +139,9 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $cliente = Cliente::where('id', $id)->where('duenio', Auth::id())->firstOrFail();
+
         $this->validate($request, [
             'nombre'    => 'required|string',
             'rfc'       => 'required|rfc',
@@ -187,6 +191,9 @@ class ClientesController extends Controller
                     'email'         => $request->email,
                     'visible'       => true
                 ]);
+
+                $cliente->visible = 0;
+                $cliente->save();
             }
             else
             {

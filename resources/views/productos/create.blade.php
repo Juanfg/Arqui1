@@ -50,7 +50,7 @@
       <div class="form-group col-sm-6">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-money"></i></span>
-          {!! Form::number('precio', null, ['class' => 'form-control', 'placeholder' => '$0.00']) !!}
+          {!! Form::text('precio', null, ['class' => 'form-control', 'placeholder' => '$0.00']) !!}
         </div>
       </div>
 

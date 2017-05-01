@@ -36,8 +36,8 @@
 </div>
 
 {{ Form::open([
-    'method' => $cliente ? 'PUT' : 'POST',
-    'route' => $cliente ? ['clientes.update', $cliente->id] : 'clientes.store',
+    'method' => $cliente->id ? 'PUT' : 'POST',
+    'route' => $cliente->id ? ['clientes.update', $cliente->id] : 'clientes.store',
     'id' => 'form'
 ]) }}
   <div class="col-xs-12">
@@ -45,7 +45,7 @@
       <label for="nombre">Raz&oacute;n social:</label>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre o razon social']) !!}
+        {!! Form::text('nombre', $cliente->razon_social, ['class' => 'form-control', 'placeholder' => 'Nombre o razon social']) !!}
       </div>
     </div>
 
@@ -53,7 +53,7 @@
       <label for="rfc">RFC:</label>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        {!! Form::text('rfc', null, ['class' => 'form-control', 'placeholder' => 'rfc']) !!}
+        {!! Form::text('rfc', $cliente->rfc, ['class' => 'form-control', 'placeholder' => 'rfc']) !!}
       </div>
     </div>
   </div>
@@ -65,14 +65,14 @@
       <div class="form-group col-sm-6">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-          {!! Form::text('direccion', null, ['class' => 'form-control', 'placeholder' => 'Calle']) !!}
+          {!! Form::text('direccion', $direccion->calle, ['class' => 'form-control', 'placeholder' => 'Calle']) !!}
         </div>
       </div>
       <div class="form-group col-sm-3 col-xs-12">
         <div class="input-group col-xs-12">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-home"></i></span>
-            {!! Form::text('exterior', null, ['class' => 'form-control', 'placeholder' => 'Num ext']) !!}
+            {!! Form::text('exterior', $direccion->num_ext, ['class' => 'form-control', 'placeholder' => 'Num ext']) !!}
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
         <div class="input-group col-xs-12">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-building"></i></span>
-            {!! Form::text('interior', null, ['class' => 'form-control', 'placeholder' => 'Num int']) !!}
+            {!! Form::text('interior', $direccion->num_int, ['class' => 'form-control', 'placeholder' => 'Num int']) !!}
           </div>
         </div>
       </div>
@@ -89,14 +89,14 @@
     <div class="form-group col-sm-6 col-xs-12">
       <div class="input-group col-xs-12">
           <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
-          <input class="form-control" type="text" name="colonia" placeholder="Colonia" id="colonia" value="{{$cliente ? $direccion->colonia : ""}}">
+          {!! Form::text('colonia', $direccion->colonia, ['class' => 'form-control', 'placeholder' => 'Colonia']) !!}
       </div>
     </div>
 
     <div class="form-group col-sm-6">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-          {!! Form::text('cp', null, ['class' => 'form-control', 'placeholder' => 'CP']) !!}
+          {!! Form::text('cp', $direccion->cp, ['class' => 'form-control', 'placeholder' => 'CP']) !!}
         </div>
     </div>
 
@@ -105,21 +105,21 @@
       <div class="form-group col-sm-4">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-          {!! Form::text('delegacion', null, ['class' => 'form-control', 'placeholder' => 'Delegacion']) !!}
+          {!! Form::text('delegacion', $direccion->delegacion, ['class' => 'form-control', 'placeholder' => 'Delegacion']) !!}
         </div>
       </div>
 
       <div class="form-group col-sm-4">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-compass"></i></span>
-          {!! Form::text('municipio', null, ['class' => 'form-control', 'placeholder' => 'Municipio']) !!}
+          {!! Form::text('municipio', $direccion->municipio, ['class' => 'form-control', 'placeholder' => 'Municipio']) !!}
         </div>
       </div>
 
       <div class="form-group col-sm-4">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-          {!! Form::select('estados', $estados); !!}
+          {!! Form::select("estados", $estados, $direccion->estado,[ 'class' => 'form-control' ]) !!}
         </div>
       </div>
       
@@ -129,7 +129,7 @@
       <label for="email">Email</label>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'mail@example.com']) !!}
+        {!! Form::text('email', $cliente->email, ['class' => 'form-control', 'placeholder' => 'mail@example.com']) !!}
       </div>
     </div>
   </div>
